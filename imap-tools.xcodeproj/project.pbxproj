@@ -8,12 +8,45 @@
 
 /* Begin PBXBuildFile section */
 		765B4EF51C68EF9E0013C5DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4EF41C68EF9E0013C5DD /* main.swift */; };
+		765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F001C68F6E20013C5DD /* CountdownLatch.swift */; };
+		765B4F041C68F88C0013C5DD /* MailCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F021C68F88C0013C5DD /* MailCore.framework */; };
+		765B4F051C68F88C0013C5DD /* MailCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F021C68F88C0013C5DD /* MailCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		765B4F061C68F88C0013C5DD /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */; };
+		765B4F071C68F88C0013C5DD /* SwiftyBeaver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		765B4F0E1C6902B10013C5DD /* MailCore.framework.dSYM in Copy Framework Debug Symbols */ = {isa = PBXBuildFile; fileRef = 765B4F0B1C6902B10013C5DD /* MailCore.framework.dSYM */; };
+		765B4F0F1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM in Copy Framework Debug Symbols */ = {isa = PBXBuildFile; fileRef = 765B4F0C1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM */; };
+		765B4F1B1C6927310013C5DD /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F1A1C6927310013C5DD /* Accounts.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		765B4F081C68F88C0013C5DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				765B4F051C68F88C0013C5DD /* MailCore.framework in Embed Frameworks */,
+				765B4F071C68F88C0013C5DD /* SwiftyBeaver.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		765B4F091C69029A0013C5DD /* Copy Framework Debug Symbols */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				765B4F0E1C6902B10013C5DD /* MailCore.framework.dSYM in Copy Framework Debug Symbols */,
+				765B4F0F1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM in Copy Framework Debug Symbols */,
+			);
+			name = "Copy Framework Debug Symbols";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7603D95C1C68EF2A00D94086 /* imap-tools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "imap-tools.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		765B4EF21C68EF9E0013C5DD /* imap-tools-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "imap-tools-Bridging-Header.h"; sourceTree = "<group>"; };
-		765B4EF31C68EF9E0013C5DD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = sources/Info.plist; sourceTree = "<group>"; };
 		765B4EF41C68EF9E0013C5DD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = sources/main.swift; sourceTree = "<group>"; };
 		765B4EF81C68F1D40013C5DD /* imap-tools-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "imap-tools-Bridging-Header.h"; path = "resource/imap-tools-Bridging-Header.h"; sourceTree = "<group>"; };
 		765B4EF91C68F1D40013C5DD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resource/Info.plist; sourceTree = "<group>"; };
@@ -21,6 +54,15 @@
 		765B4EFB1C68F2830013C5DD /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		765B4EFC1C68F2830013C5DD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		765B4EFF1C68F2B00013C5DD /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		765B4F001C68F6E20013C5DD /* CountdownLatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CountdownLatch.swift; path = sources/CountdownLatch.swift; sourceTree = "<group>"; };
+		765B4F021C68F88C0013C5DD /* MailCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MailCore.framework; path = Carthage/Build/Mac/MailCore.framework; sourceTree = "<group>"; };
+		765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/Mac/SwiftyBeaver.framework; sourceTree = "<group>"; };
+		765B4F0B1C6902B10013C5DD /* MailCore.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MailCore.framework.dSYM; path = Carthage/Build/Mac/MailCore.framework.dSYM; sourceTree = "<group>"; };
+		765B4F0C1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftyBeaver.framework.dSYM; path = Carthage/Build/Mac/SwiftyBeaver.framework.dSYM; sourceTree = "<group>"; };
+		765B4F171C6910770013C5DD /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		765B4F181C6910C40013C5DD /* accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = accounts.plist; sourceTree = "<group>"; };
+		765B4F191C6913240013C5DD /* accounts-sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "accounts-sample.plist"; sourceTree = "<group>"; };
+		765B4F1A1C6927310013C5DD /* Accounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Accounts.swift; path = sources/Accounts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				765B4F041C68F88C0013C5DD /* MailCore.framework in Frameworks */,
+				765B4F061C68F88C0013C5DD /* SwiftyBeaver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,10 +81,6 @@
 		7603D9541C68EF2A00D94086 = {
 			isa = PBXGroup;
 			children = (
-				765B4EFF1C68F2B00013C5DD /* .gitignore */,
-				765B4EFA1C68F2830013C5DD /* Cartfile */,
-				765B4EFB1C68F2830013C5DD /* LICENSE.md */,
-				765B4EFC1C68F2830013C5DD /* README.md */,
 				765B4EF71C68EFBA0013C5DD /* resource */,
 				765B4EF61C68EFB30013C5DD /* source */,
 				7603D95D1C68EF2A00D94086 /* Products */,
@@ -58,7 +98,9 @@
 		765B4EF61C68EFB30013C5DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				765B4F001C68F6E20013C5DD /* CountdownLatch.swift */,
 				765B4EF41C68EF9E0013C5DD /* main.swift */,
+				765B4F1A1C6927310013C5DD /* Accounts.swift */,
 			);
 			name = source;
 			sourceTree = "<group>";
@@ -66,10 +108,19 @@
 		765B4EF71C68EFBA0013C5DD /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				765B4F021C68F88C0013C5DD /* MailCore.framework */,
+				765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */,
+				765B4EFF1C68F2B00013C5DD /* .gitignore */,
+				765B4F181C6910C40013C5DD /* accounts.plist */,
+				765B4F191C6913240013C5DD /* accounts-sample.plist */,
+				765B4EFC1C68F2830013C5DD /* README.md */,
+				765B4EFB1C68F2830013C5DD /* LICENSE.md */,
+				765B4EFA1C68F2830013C5DD /* Cartfile */,
+				765B4F171C6910770013C5DD /* Cartfile.resolved */,
+				765B4F0B1C6902B10013C5DD /* MailCore.framework.dSYM */,
+				765B4F0C1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM */,
 				765B4EF81C68F1D40013C5DD /* imap-tools-Bridging-Header.h */,
 				765B4EF91C68F1D40013C5DD /* Info.plist */,
-				765B4EF21C68EF9E0013C5DD /* imap-tools-Bridging-Header.h */,
-				765B4EF31C68EF9E0013C5DD /* Info.plist */,
 			);
 			name = resource;
 			sourceTree = "<group>";
@@ -83,6 +134,8 @@
 			buildPhases = (
 				7603D9591C68EF2A00D94086 /* Sources */,
 				7603D95A1C68EF2A00D94086 /* Frameworks */,
+				765B4F081C68F88C0013C5DD /* Embed Frameworks */,
+				765B4F091C69029A0013C5DD /* Copy Framework Debug Symbols */,
 			);
 			buildRules = (
 			);
@@ -130,7 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */,
 				765B4EF51C68EF9E0013C5DD /* main.swift in Sources */,
+				765B4F1B1C6927310013C5DD /* Accounts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +275,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/resource/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renaghan.imap-tools";
@@ -233,11 +292,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/resource/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renaghan.imap-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "resource/imap-tools-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
 		};
