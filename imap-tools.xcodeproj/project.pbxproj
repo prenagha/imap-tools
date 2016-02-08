@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7603D9601C68EF2A00D94086 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7603D95F1C68EF2A00D94086 /* main.swift */; };
+		765B4EF51C68EF9E0013C5DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4EF41C68EF9E0013C5DD /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7603D95C1C68EF2A00D94086 /* imap-tools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "imap-tools.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7603D95F1C68EF2A00D94086 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		7603D9611C68EF2A00D94086 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		765B4EF21C68EF9E0013C5DD /* imap-tools-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "imap-tools-Bridging-Header.h"; sourceTree = "<group>"; };
+		765B4EF31C68EF9E0013C5DD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = sources/Info.plist; sourceTree = "<group>"; };
+		765B4EF41C68EF9E0013C5DD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = sources/main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +31,8 @@
 		7603D9541C68EF2A00D94086 = {
 			isa = PBXGroup;
 			children = (
-				7603D95E1C68EF2A00D94086 /* imap-tools */,
+				765B4EF71C68EFBA0013C5DD /* resource */,
+				765B4EF61C68EFB30013C5DD /* source */,
 				7603D95D1C68EF2A00D94086 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,13 +45,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7603D95E1C68EF2A00D94086 /* imap-tools */ = {
+		765B4EF61C68EFB30013C5DD /* source */ = {
 			isa = PBXGroup;
 			children = (
-				7603D95F1C68EF2A00D94086 /* main.swift */,
-				7603D9611C68EF2A00D94086 /* Info.plist */,
+				765B4EF41C68EF9E0013C5DD /* main.swift */,
 			);
-			path = "imap-tools";
+			name = source;
+			sourceTree = "<group>";
+		};
+		765B4EF71C68EFBA0013C5DD /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				765B4EF21C68EF9E0013C5DD /* imap-tools-Bridging-Header.h */,
+				765B4EF31C68EF9E0013C5DD /* Info.plist */,
+			);
+			name = resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,7 +118,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7603D9601C68EF2A00D94086 /* main.swift in Sources */,
+				765B4EF51C68EF9E0013C5DD /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,20 +207,25 @@
 		7603D9651C68EF2A00D94086 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "imap-tools/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renaghan.imap-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "imap-tools-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7603D9661C68EF2A00D94086 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "imap-tools/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.renaghan.imap-tools";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "imap-tools-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -233,6 +248,7 @@
 				7603D9661C68EF2A00D94086 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
