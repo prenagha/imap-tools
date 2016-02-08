@@ -6,9 +6,9 @@ Command line tools for helping to manage IMAP mailboxes
 
 Currently supports the following functions
 * Move messages from IMAP folder on server1 to server1
-** Useful in an automatic archive system
+  * Useful in an automatic archive system
 * Delete message from IMAP folder older than age
-** Useful in an automatic empty trash scheme
+  * Useful in an automatic empty trash scheme
 
 ## Technologies
 * XCode
