@@ -3,56 +3,48 @@
 import SwiftyBeaver
 
 // setup logging
-let log = SwiftyBeaver.self
+let LOG = SwiftyBeaver.self
 let console = ConsoleDestination()
 console.dateFormat = "HH:mm:ss.SSS"
 console.colored = false
-log.addDestination(console)
+LOG.addDestination(console)
 
-log.info("Start")
+LOG.info("Start")
 
 // keep track of response handler running async
-let latch = CountdownLatch()
+let LATCH = CountdownLatch()
 
 // run response handler async in their own queue
-let queue = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_CONCURRENT)
+let IMAP_QUEUE = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_CONCURRENT)
 
-var session = MCOIMAPSession()
-session.dispatchQueue = queue
+//TODO take config path from command line
+let plistPath = "/Users/prenagha/Dev/imap-tools/config.plist"
+let CONFIG = Config(path: plistPath)
 
-let plistPath = "/Users/prenagha/Dev/imap-tools/accounts.plist"
-let accounts = Accounts(path: plistPath)
-let accountName = "Work"
-
-session.hostname = accounts.getServer(accountName)
-session.port = accounts.getPort(accountName)
-session.username = accounts.getUsername(accountName)
-session.password = accounts.getPassword(accountName)
-session.connectionType = MCOConnectionType.TLS
-
-let uidSet = MCOIndexSet(range: MCORange(location: 1, length: UINT64_MAX))
-let fetchOp = session.fetchMessagesByUIDOperationWithFolder(
-  "Trash", requestKind: MCOIMAPMessagesRequestKind.Headers, uids: uidSet)
-
-log.verbose("fetch start")
-latch.add()
-fetchOp.start { (err, msgs, vanished) in
-  if let e = err {
-    log.error("fetch error: \(e)")
-  } else {
-    log.info("fetch success \(msgs!.count) messages")
-  }
-  latch.remove()
+// Load up a map of the servers, run folder list to initiate connection and
+// check that things are ok
+var servers = [String: IMAPServer]()
+for serverName in CONFIG.getServers() {
+  let server = IMAPServer(name: serverName)
+  server.folderList()
+  servers[serverName] = server
 }
-log.verbose("fetch end")
 
+// Perform the delete old items action
+for server in servers.values {
+  let (deleteOlderThanDays, deleteFromFolder) = CONFIG.getDeleteOlderThan(server.name)
+  if deleteOlderThanDays > 0 {
+    LOG.info("\(server.name) delete older than \(deleteOlderThanDays) days from \(deleteFromFolder)")
+    server.messagesInFolder(deleteFromFolder)
+  }
+}
 
 // block main thread until all our tasks are complete or 10s has passed
-if latch.wait(10) {
-  log.info("All operations complete")
+if LATCH.wait(10) {
+  LOG.info("All operations complete")
 } else {
-  log.error("ERROR operations did not complete")
+  LOG.error("ERROR operations did not complete")
 }
 
-log.info("End")
-log.flush(10)
+LOG.info("End")
+LOG.flush(10)

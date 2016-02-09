@@ -15,7 +15,8 @@
 		765B4F071C68F88C0013C5DD /* SwiftyBeaver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		765B4F0E1C6902B10013C5DD /* MailCore.framework.dSYM in Copy Framework Debug Symbols */ = {isa = PBXBuildFile; fileRef = 765B4F0B1C6902B10013C5DD /* MailCore.framework.dSYM */; };
 		765B4F0F1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM in Copy Framework Debug Symbols */ = {isa = PBXBuildFile; fileRef = 765B4F0C1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM */; };
-		765B4F1B1C6927310013C5DD /* Accounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F1A1C6927310013C5DD /* Accounts.swift */; };
+		765B4F1D1C6948760013C5DD /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F1C1C6948760013C5DD /* Config.swift */; };
+		765B4F211C6949ED0013C5DD /* IMAPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F201C6949ED0013C5DD /* IMAPServer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,9 +61,10 @@
 		765B4F0B1C6902B10013C5DD /* MailCore.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = MailCore.framework.dSYM; path = Carthage/Build/Mac/MailCore.framework.dSYM; sourceTree = "<group>"; };
 		765B4F0C1C6902B10013C5DD /* SwiftyBeaver.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SwiftyBeaver.framework.dSYM; path = Carthage/Build/Mac/SwiftyBeaver.framework.dSYM; sourceTree = "<group>"; };
 		765B4F171C6910770013C5DD /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
-		765B4F181C6910C40013C5DD /* accounts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = accounts.plist; sourceTree = "<group>"; };
-		765B4F191C6913240013C5DD /* accounts-sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "accounts-sample.plist"; sourceTree = "<group>"; };
-		765B4F1A1C6927310013C5DD /* Accounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Accounts.swift; path = sources/Accounts.swift; sourceTree = "<group>"; };
+		765B4F1C1C6948760013C5DD /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Config.swift; path = sources/Config.swift; sourceTree = "<group>"; };
+		765B4F1E1C6949080013C5DD /* config-sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "config-sample.plist"; sourceTree = "<group>"; };
+		765B4F1F1C6949080013C5DD /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		765B4F201C6949ED0013C5DD /* IMAPServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMAPServer.swift; path = sources/IMAPServer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +100,10 @@
 		765B4EF61C68EFB30013C5DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				765B4F1C1C6948760013C5DD /* Config.swift */,
 				765B4F001C68F6E20013C5DD /* CountdownLatch.swift */,
 				765B4EF41C68EF9E0013C5DD /* main.swift */,
-				765B4F1A1C6927310013C5DD /* Accounts.swift */,
+				765B4F201C6949ED0013C5DD /* IMAPServer.swift */,
 			);
 			name = source;
 			sourceTree = "<group>";
@@ -108,11 +111,11 @@
 		765B4EF71C68EFBA0013C5DD /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				765B4F1E1C6949080013C5DD /* config-sample.plist */,
+				765B4F1F1C6949080013C5DD /* config.plist */,
 				765B4F021C68F88C0013C5DD /* MailCore.framework */,
 				765B4F031C68F88C0013C5DD /* SwiftyBeaver.framework */,
 				765B4EFF1C68F2B00013C5DD /* .gitignore */,
-				765B4F181C6910C40013C5DD /* accounts.plist */,
-				765B4F191C6913240013C5DD /* accounts-sample.plist */,
 				765B4EFC1C68F2830013C5DD /* README.md */,
 				765B4EFB1C68F2830013C5DD /* LICENSE.md */,
 				765B4EFA1C68F2830013C5DD /* Cartfile */,
@@ -184,8 +187,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */,
+				765B4F211C6949ED0013C5DD /* IMAPServer.swift in Sources */,
 				765B4EF51C68EF9E0013C5DD /* main.swift in Sources */,
-				765B4F1B1C6927310013C5DD /* Accounts.swift in Sources */,
+				765B4F1D1C6948760013C5DD /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
