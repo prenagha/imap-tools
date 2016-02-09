@@ -15,7 +15,7 @@ LOG.info("Start")
 let LATCH = CountdownLatch()
 
 // run response handler async in their own queue
-let IMAP_QUEUE = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_CONCURRENT)
+let IMAP_QUEUE = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_SERIAL)
 
 //TODO take config path from command line
 let plistPath = "/Users/prenagha/Dev/imap-tools/config.plist"
@@ -26,7 +26,7 @@ let CONFIG = Config(path: plistPath)
 var servers = [String: IMAPServer]()
 for serverName in CONFIG.getServers() {
   let server = IMAPServer(name: serverName)
-  server.folderList()
+  //server.folderList()
   servers[serverName] = server
 }
 
@@ -35,12 +35,12 @@ for server in servers.values {
   let (deleteOlderThanDays, deleteFromFolder) = CONFIG.getDeleteOlderThan(server.name)
   if deleteOlderThanDays > 0 {
     LOG.info("\(server.name) delete older than \(deleteOlderThanDays) days from \(deleteFromFolder)")
-    server.messagesInFolder(deleteFromFolder)
+    server.deleteOlderThan(deleteFromFolder, olderThanDays: Int(deleteOlderThanDays))
   }
 }
 
 // block main thread until all our tasks are complete or 10s has passed
-if LATCH.wait(10) {
+if LATCH.wait(60) {
   LOG.info("All operations complete")
 } else {
   LOG.error("ERROR operations did not complete")
