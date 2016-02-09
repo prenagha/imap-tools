@@ -39,12 +39,19 @@ class IMAPServer {
     }
   }
 
+  func copyTo(destServer: IMAPServer, destFolder: String, olderThanDays: Int) {
+    //appendMessageOperationWithFolder:messageData:flags:
+  }
+
   func deleteOlderThan(folder: String, olderThanDays: Int) {
+    if olderThanDays <= 0 {
+      return
+    }
     let now = NSDate()
     let cal = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
     let days: NSCalendarUnit = [.Day]
     let kind: MCOIMAPMessagesRequestKind = [.Uid, .InternalDate]
-    var willDelete = MCOIndexSet()
+    let willDelete = MCOIndexSet()
     let fetchMessages = session.fetchMessagesOperationWithFolder(folder,
       requestKind: kind, uids: IMAPServer.RANGE_ALL)
     LATCH.add()
@@ -66,6 +73,10 @@ class IMAPServer {
       }
 
       LOG.info("Found \(willDelete.count()) messages to delete")
+      if willDelete.count() == 0 {
+        LATCH.remove()
+        return
+      }
 
       let flags: MCOMessageFlag = [.Deleted]
       let setFlags = self.session.storeFlagsOperationWithFolder(folder, uids: willDelete, kind: .Set, flags: flags)

@@ -26,7 +26,7 @@ let CONFIG = Config(path: plistPath)
 var servers = [String: IMAPServer]()
 for serverName in CONFIG.getServers() {
   let server = IMAPServer(name: serverName)
-  //server.folderList()
+  server.folderList()
   servers[serverName] = server
 }
 
