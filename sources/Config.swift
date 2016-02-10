@@ -71,13 +71,25 @@ class Config {
     }
   }
 
-  func getDeleteOlderThan(account: String) -> (UInt32, String) {
+  func getDeleteOlderThan(account: String) -> (Int, String) {
     if let v = accountProp(account, key: "DeleteOlderThanDays") {
       let n = v as! NSNumber
       if let f = accountProp(account, key: "DeleteOlderThanFolder") {
-        return (UInt32(n.doubleValue), f as! String)
+        return (Int(n.doubleValue), f as! String)
       }
     }
     return (0, "")
   }
+
+  func getArchiveOlderThan(account: String) -> ([String], String, String, Int) {
+    if let ff=accountProp(account, key: "ArchiveFromFolders")
+    , let ts=accountProp(account, key: "ArchiveToServer")
+    , let tf=accountProp(account, key: "ArchiveToFolder")
+    , let d=accountProp(account, key: "ArchiveOlderThanDays") {
+      return ((ff as! String).split(","), ts as! String, tf as! String, Int((d as! NSNumber).doubleValue))
+    } else {
+      return ([], "", "", 0)
+    }
+  }
+
 }

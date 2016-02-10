@@ -17,3 +17,5 @@ Currently supports the following functions
 * [MailCore](http://libmailcore.com)
 * [Swifty Beaver](https://github.com/SwiftyBeaver/SwiftyBeaver)
 * [Swift Command Line Project XCode Template](https://github.com/Zewo/Swift-Command-Line-Application-Template)
+* [Swift String](https://github.com/amayne/SwiftString)
+

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7656F05B1C6BDEB4003DC7D4 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7656F05A1C6BDEB4003DC7D4 /* StringExtensions.swift */; };
+		7656F05D1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7656F05C1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift */; };
 		765B4EF51C68EF9E0013C5DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4EF41C68EF9E0013C5DD /* main.swift */; };
 		765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F001C68F6E20013C5DD /* CountdownLatch.swift */; };
 		765B4F041C68F88C0013C5DD /* MailCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F021C68F88C0013C5DD /* MailCore.framework */; };
@@ -48,6 +50,8 @@
 
 /* Begin PBXFileReference section */
 		7603D95C1C68EF2A00D94086 /* imap-tools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "imap-tools.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7656F05A1C6BDEB4003DC7D4 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Carthage/Checkouts/SwiftString/Pod/Classes/StringExtensions.swift; sourceTree = "<group>"; };
+		7656F05C1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MCOIndexSetExtension.swift; path = sources/MCOIndexSetExtension.swift; sourceTree = "<group>"; };
 		765B4EF41C68EF9E0013C5DD /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = sources/main.swift; sourceTree = "<group>"; };
 		765B4EF81C68F1D40013C5DD /* imap-tools-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "imap-tools-Bridging-Header.h"; path = "resource/imap-tools-Bridging-Header.h"; sourceTree = "<group>"; };
 		765B4EF91C68F1D40013C5DD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = resource/Info.plist; sourceTree = "<group>"; };
@@ -100,10 +104,12 @@
 		765B4EF61C68EFB30013C5DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				7656F05A1C6BDEB4003DC7D4 /* StringExtensions.swift */,
 				765B4F1C1C6948760013C5DD /* Config.swift */,
 				765B4F001C68F6E20013C5DD /* CountdownLatch.swift */,
 				765B4EF41C68EF9E0013C5DD /* main.swift */,
 				765B4F201C6949ED0013C5DD /* IMAPServer.swift */,
+				7656F05C1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift */,
 			);
 			name = source;
 			sourceTree = "<group>";
@@ -188,6 +194,8 @@
 			files = (
 				765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */,
 				765B4F211C6949ED0013C5DD /* IMAPServer.swift in Sources */,
+				7656F05B1C6BDEB4003DC7D4 /* StringExtensions.swift in Sources */,
+				7656F05D1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift in Sources */,
 				765B4EF51C68EF9E0013C5DD /* main.swift in Sources */,
 				765B4F1D1C6948760013C5DD /* Config.swift in Sources */,
 			);

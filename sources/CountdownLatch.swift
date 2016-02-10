@@ -46,8 +46,8 @@ struct CountdownLatch {
 
   - returns: true if all items complete, false if timeout occurred
   */
-  func wait(secondTimeout: Int64) -> Bool {
-    let until = dispatch_time(DISPATCH_TIME_NOW, secondTimeout * 1000000000)
+  func wait(secondTimeout: Int) -> Bool {
+    let until = dispatch_time(DISPATCH_TIME_NOW, Int64(secondTimeout) * 1000000000)
     return dispatch_group_wait(group, until) == 0
   }
 }

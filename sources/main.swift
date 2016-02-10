@@ -11,18 +11,12 @@ LOG.addDestination(console)
 
 LOG.info("Start")
 
-// keep track of response handler running async
-let LATCH = CountdownLatch()
-
-// run response handler async in their own queue
-let IMAP_QUEUE = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_SERIAL)
-
 //TODO take config path from command line
 let plistPath = "/Users/prenagha/Dev/imap-tools/config.plist"
 let CONFIG = Config(path: plistPath)
 
 // Load up a map of the servers, run folder list to initiate connection and
-// check that things are ok
+// check that things are ok by listing folders out
 var servers = [String: IMAPServer]()
 for serverName in CONFIG.getServers() {
   let server = IMAPServer(name: serverName)
@@ -35,15 +29,56 @@ for server in servers.values {
   let (deleteOlderThanDays, deleteFromFolder) = CONFIG.getDeleteOlderThan(server.name)
   if deleteOlderThanDays > 0 {
     LOG.info("\(server.name) delete older than \(deleteOlderThanDays) days from \(deleteFromFolder)")
-    server.deleteOlderThan(deleteFromFolder, olderThanDays: Int(deleteOlderThanDays))
+    let deleteMe = server.findOldMessages(deleteFromFolder, olderThanDays: deleteOlderThanDays)
+    if deleteMe.size > 0 {
+      server.markDeleted(deleteFromFolder, messages: deleteMe)
+      server.expunge(deleteFromFolder)
+    }
   }
 }
 
-// block main thread until all our tasks are complete or 10s has passed
-if LATCH.wait(60) {
-  LOG.info("All operations complete")
-} else {
-  LOG.error("ERROR operations did not complete")
+// Perform the archive move action
+for sourceServer in servers.values {
+  let (archiveFromFolders, archiveToServer, archiveToFolder, archiveOlderThanDays)
+    = CONFIG.getArchiveOlderThan(sourceServer.name)
+  if archiveOlderThanDays > 0 && archiveFromFolders.count > 0 {
+    let destServer = servers[archiveToServer]!
+
+    for archiveFromFolderLong in archiveFromFolders {
+      let archiveFromFolder = archiveFromFolderLong.trimmed()
+      
+      LOG.info("Archiving from \(sourceServer.name)/\(archiveFromFolder) to \(destServer.name)/\(archiveToFolder) older than \(archiveOlderThanDays) days")
+
+      // find messages in the source folder that should be copied
+      let archiveMe = sourceServer.findOldMessages(archiveFromFolder, olderThanDays: archiveOlderThanDays)
+
+      if archiveMe.size > 0 {
+        LOG.verbose("Found \(archiveMe.size) messages to archive")
+
+        // count of messages in the destination folder before the copy
+        let countBeforeCopy = destServer.countMessages(archiveToFolder)
+
+        // read full messages from the source server
+        let archiveMeFull = sourceServer.readFullMessages(archiveFromFolder, messageIds: archiveMe)
+
+        // add the messages to the destination server/folder
+        destServer.addMessages(archiveToFolder, fullMessages: archiveMeFull)
+
+        // count the messages in the destination folder after the copy
+        let countAfterCopy = destServer.countMessages(archiveToFolder)
+
+        // make sure the counts add up, proving the copy worked
+        if countAfterCopy >= (countBeforeCopy + archiveMe.size) {
+          // mark deleted in the source folder
+          //sourceServer.markDeleted(archiveFromFolder, messages: archiveMe)
+          // expunge the source folder
+          //sourceServer.expunge(archiveFromFolder)
+        } else {
+          LOG.error("Copy check failed before=\(countBeforeCopy) after=\(countAfterCopy) count=\(archiveMe.size)")
+        }
+      }
+    }
+  }
 }
 
 LOG.info("End")
