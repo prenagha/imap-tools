@@ -196,27 +196,61 @@ class IMAPServer {
 
 
   /**
-   Get a set of full messages from IMAP server. May take a while, reads entire message from server
+   Get a full messages from IMAP server
 
-   - parameter folder:     to read messages from
-   - parameter messageIds: to read
+   - parameter folder:    to read messages from
+   - parameter uid:       message id to read
 
-   - returns: collection of messages including all message data
+   - returns: full data of message
    */
-  func readFullMessages(folder: String, messageIds: MCOIndexSet) -> [MCOIMAPMessage] {
+  func readFullMessage(folder: String, uid: Int) -> NSData {
+    let latch = CountdownLatch()
+    latch.add()
 
-
-    return []
+    var data = NSData()
+    LOG.verbose("Read \(uid) from \(name)/\(folder)...")
+    session.fetchMessageOperationWithFolder(folder, uid: UInt32(uid))
+      .start { (err, d) in
+        if let e = err {
+          LOG.error("\(self.name)/\(folder) read message error: \(e)")
+        } else if let dat = d {
+          data = dat
+        } else {
+          LOG.error("\(self.name)/\(folder) read message returned nothing")
+        }
+        latch.remove()
+    }
+    if latch.wait(IMAPServer.WAITS) {
+      LOG.verbose("Read \(uid) message \(data.length) bytes from \(self.name)/\(folder)")
+      return data
+    } else {
+      LOG.error("Read \(uid) message in \(self.name)/\(folder) timeout")
+      return NSData()
+    }
   }
 
   /**
-   Add messages to folder on server
+   Add message to folder
 
-   - parameter folder: to add to
-   - parameter fullMessages: to add, must be full message data
+   - parameter folder:      to add message to
+   - parameter fullMessage: to add to folder
    */
-  func addMessages(folder: String, fullMessages: [MCOIMAPMessage]) {
-    //appendMessageOperationWithFolder:messageData:flags:
+  func addMessage(folder: String, fullMessage: NSData) {
+    let latch = CountdownLatch()
+    latch.add()
 
+    LOG.verbose("Add message to \(name)/\(folder)...")
+    session.appendMessageOperationWithFolder(folder, messageData: fullMessage, flags: [.Seen])
+      .start { (err, uid) in
+        if let e = err {
+          LOG.error("\(self.name)/\(folder) add message error: \(e)")
+        } else {
+          LOG.verbose("\(self.name)/\(folder) added message \(uid)")
+        }
+        latch.remove()
+    }
+    if !latch.wait(IMAPServer.WAITS) {
+      LOG.error("Add message \(self.name)/\(folder) timeout")
+    }
   }
 }

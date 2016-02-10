@@ -38,7 +38,7 @@ for server in servers.values {
 }
 
 // Perform the archive move action
-for sourceServer in servers.values {
+sloop: for sourceServer in servers.values {
   let (archiveFromFolders, archiveToServer, archiveToFolder, archiveOlderThanDays)
     = CONFIG.getArchiveOlderThan(sourceServer.name)
   if archiveOlderThanDays > 0 && archiveFromFolders.count > 0 {
@@ -58,23 +58,31 @@ for sourceServer in servers.values {
         // count of messages in the destination folder before the copy
         let countBeforeCopy = destServer.countMessages(archiveToFolder)
 
-        // read full messages from the source server
-        let archiveMeFull = sourceServer.readFullMessages(archiveFromFolder, messageIds: archiveMe)
+        for uid in archiveMe.nsIndexSet() {
+          // read full message from the source server
+          let fullMessage = sourceServer.readFullMessage(archiveFromFolder, uid: uid)
+          if fullMessage.length == 0 {
+            LOG.error("Message read failed, empty \(uid)")
+            break sloop
+          }
 
-        // add the messages to the destination server/folder
-        destServer.addMessages(archiveToFolder, fullMessages: archiveMeFull)
+          // add the message to the destination server/folder
+          destServer.addMessage(archiveToFolder, fullMessage: fullMessage)
+        }
 
         // count the messages in the destination folder after the copy
         let countAfterCopy = destServer.countMessages(archiveToFolder)
 
         // make sure the counts add up, proving the copy worked
         if countAfterCopy >= (countBeforeCopy + archiveMe.size) {
+          LOG.info("Copy check success before=\(countBeforeCopy) after=\(countAfterCopy) count=\(archiveMe.size)")
           // mark deleted in the source folder
-          //sourceServer.markDeleted(archiveFromFolder, messages: archiveMe)
+          sourceServer.markDeleted(archiveFromFolder, messages: archiveMe)
           // expunge the source folder
-          //sourceServer.expunge(archiveFromFolder)
+          sourceServer.expunge(archiveFromFolder)
         } else {
           LOG.error("Copy check failed before=\(countBeforeCopy) after=\(countAfterCopy) count=\(archiveMe.size)")
+          break sloop
         }
       }
     }
