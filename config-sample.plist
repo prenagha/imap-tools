@@ -5,24 +5,36 @@
 	<key>Work</key>
 	<dict>
 		<key>Server</key>
-		<string>zzzz</string>
+		<string>zzz</string>
 		<key>Port</key>
 		<integer>443</integer>
 		<key>Username</key>
-		<string>yyy</string>
+		<string>zzz</string>
 		<key>Password</key>
-		<string>xxx</string>
+		<string>zzz</string>
+		<key>DeleteOlderThanDays</key>
+		<integer>10</integer>
+		<key>DeleteOlderThanFolder</key>
+		<string>Deleted Items</string>
+		<key>ArchiveFromFolders</key>
+		<string>Archive, Sent Items</string>
+		<key>ArchiveToServer</key>
+		<string>WorkArchive</string>
+		<key>ArchiveToFolder</key>
+		<string>Archive</string>
+		<key>ArchiveOlderThanDays</key>
+		<integer>32</integer>
 	</dict>
-	<key>Archive</key>
+	<key>WorkArchive</key>
 	<dict>
 		<key>Server</key>
 		<string>zzz</string>
 		<key>Port</key>
-		<integer>143</integer>
+		<integer>443</integer>
 		<key>Username</key>
-		<string>yyy</string>
+		<string>zzz</string>
 		<key>Password</key>
-		<string>xxx</string>
+		<string>zzz</string>
 	</dict>
 </dict>
 </plist>
