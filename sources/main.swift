@@ -19,7 +19,7 @@ let CONFIG = Config(path: plistPath)
 // check that things are ok by listing folders out
 var servers = [String: IMAPServer]()
 for serverName in CONFIG.getServers() {
-  let server = IMAPServer(name: serverName)
+  let server = IMAPServer(name: serverName, hostname: CONFIG.getServer(serverName), port: CONFIG.getPort(serverName), username: CONFIG.getUsername(serverName), password: CONFIG.getPassword(serverName))
   server.folderList()
   servers[serverName] = server
 }

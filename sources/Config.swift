@@ -46,10 +46,10 @@ class Config {
     }
   }
 
-  func getPort(account: String) -> UInt32 {
+  func getPort(account: String) -> Int {
     if let v = accountProp(account, key: "Port") {
       let n = v as! NSNumber
-      return UInt32(n.doubleValue)
+      return Int(n.doubleValue)
     } else {
       return 993
     }

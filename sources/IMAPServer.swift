@@ -7,23 +7,22 @@ class IMAPServer {
   // How long to wait in seconds for IMAP action to complete
   private static let WAITS = 5 * 60
   // run response handler async in their own queue
-  private static let IMAP_QUEUE = dispatch_queue_create("my.imap-queue", DISPATCH_QUEUE_SERIAL)
+  private static let IMAP_QUEUE = dispatch_queue_create("com.renaghan.imap-tools", DISPATCH_QUEUE_SERIAL)
 
   let name: String
   let session: MCOIMAPSession
 
-  init(name: String) {
+  init(name: String, hostname: String, port: Int, username: String, password: String) {
     self.name = name
     session = MCOIMAPSession()
     session.dispatchQueue = IMAPServer.IMAP_QUEUE
-    session.hostname = CONFIG.getServer(name)
-    session.port = CONFIG.getPort(name)
-    session.username = CONFIG.getUsername(name)
-    session.password = CONFIG.getPassword(name)
+    session.hostname = hostname
+    session.port = UInt32(port)
+    session.username = username
+    session.password = password
+    session.connectionType = MCOConnectionType.TLS
     if session.port == 143 {
       session.connectionType = MCOConnectionType.Clear
-    } else {
-      session.connectionType = MCOConnectionType.TLS
     }
   }
 
