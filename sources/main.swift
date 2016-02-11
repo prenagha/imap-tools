@@ -12,7 +12,7 @@ LOG.addDestination(console)
 LOG.info("Start")
 
 //TODO take config path from command line
-let plistPath = "/Users/prenagha/Dev/imap-tools/config.plist"
+let plistPath = NSHomeDirectory() + "/Dev/imap-tools/config.plist"
 let CONFIG = Config(path: plistPath)
 
 // Load up a map of the servers, run folder list to initiate connection and
