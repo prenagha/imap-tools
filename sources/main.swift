@@ -8,6 +8,10 @@ let console = ConsoleDestination()
 console.dateFormat = "HH:mm:ss.SSS"
 console.colored = false
 LOG.addDestination(console)
+let logFile = FileDestination()
+logFile.logFileURL = NSURL(string: "file://" + NSHomeDirectory() + "/Dev/imap-tools/bin/imap-tools.log")!
+logFile.colored = false
+LOG.addDestination(logFile)
 
 LOG.info("Start")
 

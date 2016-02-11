@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7656F05B1C6BDEB4003DC7D4 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7656F05A1C6BDEB4003DC7D4 /* StringExtensions.swift */; };
 		7656F05D1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7656F05C1C6BE02E003DC7D4 /* MCOIndexSetExtension.swift */; };
+		7656F0611C6C2761003DC7D4 /* imap-tools.app in Copy App */ = {isa = PBXBuildFile; fileRef = 7603D95C1C68EF2A00D94086 /* imap-tools.app */; };
 		765B4EF51C68EF9E0013C5DD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4EF41C68EF9E0013C5DD /* main.swift */; };
 		765B4F011C68F6E20013C5DD /* CountdownLatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765B4F001C68F6E20013C5DD /* CountdownLatch.swift */; };
 		765B4F041C68F88C0013C5DD /* MailCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 765B4F021C68F88C0013C5DD /* MailCore.framework */; };
@@ -22,6 +23,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7656F0601C6C274F003DC7D4 /* Copy App */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${PROJECT_DIR}/bin";
+			dstSubfolderSpec = 0;
+			files = (
+				7656F0611C6C2761003DC7D4 /* imap-tools.app in Copy App */,
+			);
+			name = "Copy App";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		765B4F081C68F88C0013C5DD /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,6 +157,7 @@
 				7603D95A1C68EF2A00D94086 /* Frameworks */,
 				765B4F081C68F88C0013C5DD /* Embed Frameworks */,
 				765B4F091C69029A0013C5DD /* Copy Framework Debug Symbols */,
+				7656F0601C6C274F003DC7D4 /* Copy App */,
 			);
 			buildRules = (
 			);
@@ -287,6 +300,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -304,10 +318,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "$(SRCROOT)/resource/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
