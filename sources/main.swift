@@ -13,6 +13,9 @@ logFile.logFileURL = NSURL(string: "file://" + NSHomeDirectory() + "/Dev/imap-to
 logFile.colored = false
 LOG.addDestination(logFile)
 
+console.minLevel = SwiftyBeaver.Level.Debug
+logFile.minLevel = SwiftyBeaver.Level.Debug
+
 LOG.info("Start")
 
 //TODO take config path from command line
@@ -57,7 +60,7 @@ sloop: for sourceServer in servers.values {
       let archiveMe = sourceServer.findOldMessages(archiveFromFolder, olderThanDays: archiveOlderThanDays)
 
       if archiveMe.size > 0 {
-        LOG.verbose("Found \(archiveMe.size) messages to archive")
+        LOG.info("Found \(archiveMe.size) messages to archive")
 
         // count of messages in the destination folder before the copy
         let countBeforeCopy = destServer.countMessages(archiveToFolder)

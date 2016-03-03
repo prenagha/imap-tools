@@ -7,7 +7,7 @@ class IMAPServer {
   // How long to wait in seconds for IMAP action to complete
   private static let WAITS = 5 * 60
   // run response handler async in their own queue
-  private static let IMAP_QUEUE = dispatch_queue_create("com.renaghan.imap-tools", DISPATCH_QUEUE_SERIAL)
+  private static let IMAP_QUEUE = dispatch_queue_create("com.renaghan.imap-tools", DISPATCH_QUEUE_CONCURRENT)
 
   let name: String
   let session: MCOIMAPSession
@@ -63,7 +63,7 @@ class IMAPServer {
     latch.add()
 
     var cnt = 0
-    LOG.verbose("Count messages in \(name)/\(folder)...")
+    LOG.info("Count messages in \(name)/\(folder)...")
     session.fetchMessagesOperationWithFolder(folder, requestKind: .Uid, uids: IMAPServer.RANGE_ALL)
       .start { (err, msgs, _) in
         if let e = err {
@@ -76,7 +76,7 @@ class IMAPServer {
         latch.remove()
     }
     if latch.wait(IMAPServer.WAITS) {
-      LOG.verbose("Count \(cnt) messages in \(self.name)/\(folder)")
+      LOG.info("Count \(cnt) messages in \(self.name)/\(folder)")
       return cnt
     } else {
       LOG.error("Count messages in \(self.name)/\(folder) timeout")
@@ -107,21 +107,21 @@ class IMAPServer {
     let latch = CountdownLatch()
     latch.add()
 
-    LOG.verbose("Finding old messages in \(name)/\(folder) older than \(olderThanDays)...")
+    LOG.info("Finding old messages in \(name)/\(folder) older than \(olderThanDays)...")
     let found = MCOIndexSet()
     session.fetchMessagesOperationWithFolder(folder, requestKind: kind, uids: IMAPServer.RANGE_ALL)
       .start { (err, msgs, _) in
       if let e = err {
         LOG.error("\(self.name)/\(folder) find old messages error: \(e)")
       } else if let messages = msgs {
-        LOG.verbose("\(self.name)/\(folder) \(messages.count) total messages")
+        LOG.info("\(self.name)/\(folder) \(messages.count) total messages")
         for m in messages {
           let message = m as! MCOIMAPMessage
           let components =
           cal!.components(days, fromDate: message.header.receivedDate, toDate: now, options: [])
           let ageDays = components.day
           if ageDays >= olderThanDays {
-            //LOG.verbose("  \(message.uid) \(message.header.receivedDate) \(ageDays)")
+            LOG.verbose("  \(message.uid) \(message.header.receivedDate) \(ageDays)")
             found.addIndex(UInt64(message.uid))
           }
         }
@@ -131,7 +131,7 @@ class IMAPServer {
       latch.remove()
     }
     if latch.wait(IMAPServer.WAITS) {
-      LOG.verbose("Found \(found.size) old messages in \(self.name)/\(folder) older than \(olderThanDays)")
+      LOG.info("Found \(found.size) old messages in \(self.name)/\(folder) older than \(olderThanDays)")
       return found
     } else {
       LOG.error("Find old messages in \(self.name)/\(folder) timeout")
@@ -153,7 +153,7 @@ class IMAPServer {
     let latch = CountdownLatch()
     latch.add()
 
-    LOG.verbose("Mark \(messages.size) deleted in \(name)/\(folder)...")
+    LOG.info("Mark \(messages.size) deleted in \(name)/\(folder)...")
     let deletedFlag: MCOMessageFlag = [.Deleted]
     session.storeFlagsOperationWithFolder(folder, uids: messages, kind: .Set, flags: deletedFlag)
       .start { (err) in
@@ -178,7 +178,7 @@ class IMAPServer {
     let latch = CountdownLatch()
     latch.add()
 
-    LOG.verbose("Expunge \(name)/\(folder)...")
+    LOG.info("Expunge \(name)/\(folder)...")
     session.expungeOperation(folder)
       .start { (err) in
         if let e = err {
@@ -207,7 +207,7 @@ class IMAPServer {
     latch.add()
 
     var data = NSData()
-    LOG.verbose("Read \(uid) from \(name)/\(folder)...")
+    LOG.info("Read \(uid) from \(name)/\(folder)...")
     session.fetchMessageOperationWithFolder(folder, uid: UInt32(uid))
       .start { (err, d) in
         if let e = err {
@@ -220,7 +220,7 @@ class IMAPServer {
         latch.remove()
     }
     if latch.wait(IMAPServer.WAITS) {
-      LOG.verbose("Read \(uid) message \(data.length) bytes from \(self.name)/\(folder)")
+      LOG.info("Read \(uid) message \(data.length) bytes from \(self.name)/\(folder)")
       return data
     } else {
       LOG.error("Read \(uid) message in \(self.name)/\(folder) timeout")
@@ -238,13 +238,13 @@ class IMAPServer {
     let latch = CountdownLatch()
     latch.add()
 
-    LOG.verbose("Add message to \(name)/\(folder)...")
+    LOG.info("Add message to \(name)/\(folder)...")
     session.appendMessageOperationWithFolder(folder, messageData: fullMessage, flags: [.Seen])
       .start { (err, uid) in
         if let e = err {
           LOG.error("\(self.name)/\(folder) add message error: \(e)")
         } else {
-          LOG.verbose("\(self.name)/\(folder) added message \(uid)")
+          LOG.info("\(self.name)/\(folder) added message \(uid)")
         }
         latch.remove()
     }
